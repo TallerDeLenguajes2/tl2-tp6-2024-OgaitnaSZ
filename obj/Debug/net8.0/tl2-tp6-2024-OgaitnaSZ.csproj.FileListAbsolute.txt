@@ -54,3 +54,4 @@ D:\Taller2\tl2-tp6-2024-OgaitnaSZ\obj\Debug\net8.0\refint\tl2-tp6-2024-OgaitnaSZ
 D:\Taller2\tl2-tp6-2024-OgaitnaSZ\obj\Debug\net8.0\tl2-tp6-2024-OgaitnaSZ.pdb
 D:\Taller2\tl2-tp6-2024-OgaitnaSZ\obj\Debug\net8.0\tl2-tp6-2024-OgaitnaSZ.genruntimeconfig.cache
 D:\Taller2\tl2-tp6-2024-OgaitnaSZ\obj\Debug\net8.0\ref\tl2-tp6-2024-OgaitnaSZ.dll
+D:\Taller2\tl2-tp6-2024-OgaitnaSZ\obj\Debug\net8.0\tl2-tp6-2024-OgaitnaSZ.sourcelink.json
