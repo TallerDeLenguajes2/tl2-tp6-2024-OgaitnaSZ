@@ -24,13 +24,13 @@ public class PresupuestoRepository : IPresupuestoRepository{
         }
         return listaPresupuestos;
     }
-    
+
     public void CrearPresupuesto(Presupuesto presupuesto){
         using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
             var consulta = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha)";
             connection.Open();
             var command = new SqliteCommand(consulta, connection);
-            command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.NombreDestinario));
+            command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.NombreDestinatario));
             command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.FechaCreacion));
             command.ExecuteNonQuery();
             connection.Close();
@@ -38,21 +38,27 @@ public class PresupuestoRepository : IPresupuestoRepository{
     }
 
     public Presupuesto ObtenerPresupuestoPorId(int id){
-        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
-            string consulta = "SELECT * FROM Presupuestos WHERE idPresupuesto=@id;";
-            SqliteCommand command = new SqliteCommand(consulta, connection);
-            connection.Open();
-            command.Parameters.Add(new SqliteParameter("@id", id));
-            using (SqliteDataReader reader = command.ExecuteReader()){
-                while (reader.Read()){
-                    int idDB = Convert.ToInt32(reader["idPresupuesto"]);
-                    string nombreDB = reader["NombreDestinario"].ToString();
-                    string FechaCreacionDB = reader["FechaCreacion"].ToString();
-                    DateTime fecha = DateTime.Parse(FechaCreacionDB);
-                    return new Presupuesto(idDB, nombreDB, fecha);
+        try{
+            using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+                string consulta = "SELECT * FROM Presupuestos WHERE idPresupuesto=@id;";
+                SqliteCommand command = new SqliteCommand(consulta, connection);
+                connection.Open();
+                command.Parameters.AddWithValue("@id", id);
+
+                using (SqliteDataReader reader = command.ExecuteReader()){
+                    if (reader.Read()){
+                        int idDB = Convert.ToInt32(reader["idPresupuesto"]);
+                        string nombreDB = reader["NombreDestinatario"].ToString();
+
+                        DateTime fecha;
+                        DateTime.TryParse(reader["FechaCreacion"]?.ToString(), out fecha);
+
+                        return new Presupuesto(idDB, nombreDB, fecha);
+                    }
                 }
             }
-            connection.Close();
+        }catch(Exception ex){
+            Console.WriteLine("Error al encontrar producto: " + ex);
         }
         return null;
     }
