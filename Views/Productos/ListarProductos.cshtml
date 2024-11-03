@@ -2,7 +2,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Productos</h1>
-    <a href="#" class="btn btn-sucess">Agregar Producto</a>
+    <a class="btn btn-success" asp-area="" asp-controller="Productos" asp-action="CrearProducto">Agregar Producto</a>
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -19,8 +19,8 @@
                     <td>@producto.IdProducto</td>
                     <td>@producto.Descripcion</td>
                     <td>@producto.Precio</td>
-                    <td>Editar</td>
-                    <td>Eliminar</td>
+                    <td><a asp-area="" asp-controller="Productos" asp-action="EditarProducto" asp-route-id="@producto.IdProducto">Editar</a></td>
+                    <td><a asp-area="" asp-controller="Productos" asp-action="EliminarProducto" asp-route-id="@producto.IdProducto">Eliminar</a></td>
                 </tr>
             }
         </tbody>

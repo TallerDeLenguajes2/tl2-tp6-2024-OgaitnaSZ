@@ -5,32 +5,6 @@ namespace Repositorios;
 public class ProductoRepository : IProductoRepository{
     string cadenaConexion = @"Data Source=Tienda.db;Cache=Shared";
 
-    public void CrearProducto(Producto producto){
-        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
-            string query = "INSERT INTO Productos (Descripcion, Precio) VALUES (@Descripcion, @Precio)";
-            connection.Open();
-
-            var command = new SqliteCommand(query, connection);
-            command.Parameters.Add(new SqliteParameter("@Descripcion", producto.Descripcion));
-            command.Parameters.Add(new SqliteParameter("@Precio", producto.Precio));
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-    }
-
-    public void ModificarProducto(int id, Producto nuevoProducto){
-        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
-            var query = "UPDATE Productos SET Descripcion= @Descripcion , Precio= @Precio WHERE idProducto=@id ";
-            connection.Open();
-            var command = new SqliteCommand(query, connection);
-            command.Parameters.Add(new SqliteParameter("@Descripcion", nuevoProducto.Descripcion));
-            command.Parameters.Add(new SqliteParameter("@Precio", nuevoProducto.Precio));
-            command.Parameters.Add(new SqliteParameter("@id", id));
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-    }
-
     public List<Producto> ListarProductos(){
         List<Producto> listadoProductos = new();
         using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
@@ -52,6 +26,37 @@ public class ProductoRepository : IProductoRepository{
             }
         }
         return listadoProductos;
+    }
+
+    public void CrearProducto(Producto producto){
+        try{
+            using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+                string query = "INSERT INTO Productos (Descripcion, Precio) VALUES (@Descripcion, @Precio)";
+                connection.Open();
+
+                using (var command = new SqliteCommand(query, connection)){
+                    command.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
+                    command.Parameters.AddWithValue("@Precio", producto.Precio);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }catch (Exception ex){
+            Console.WriteLine("Error al insertar producto: " + ex.Message);
+            throw;
+        }
+    }
+
+    public void ModificarProducto(int id, Producto nuevoProducto){
+        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+            var query = "UPDATE Productos SET Descripcion= @Descripcion , Precio= @Precio WHERE idProducto=@id ";
+            connection.Open();
+            var command = new SqliteCommand(query, connection);
+            command.Parameters.Add(new SqliteParameter("@Descripcion", nuevoProducto.Descripcion));
+            command.Parameters.Add(new SqliteParameter("@Precio", nuevoProducto.Precio));
+            command.Parameters.Add(new SqliteParameter("@id", id));
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 
     public Producto ObtenerProductoPorId(int id){
