@@ -5,18 +5,6 @@ namespace Repositorios;
 public class PresupuestoRepository : IPresupuestoRepository{
     string cadenaConexion = @"Data Source=Tienda.db;Cache=Shared";
 
-    public void CrearPresupuesto(Presupuesto presupuesto){
-        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
-            var consulta = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha)";
-            connection.Open();
-            var command = new SqliteCommand(consulta, connection);
-            command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.NombreDestinario));
-            command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.FechaCreacion));
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-    }
-
     public List<Presupuesto> ListarPresupuestos(){
         List<Presupuesto> listaPresupuestos = new();
         using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
@@ -35,6 +23,18 @@ public class PresupuestoRepository : IPresupuestoRepository{
             connection.Close();
         }
         return listaPresupuestos;
+    }
+    
+    public void CrearPresupuesto(Presupuesto presupuesto){
+        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+            var consulta = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha)";
+            connection.Open();
+            var command = new SqliteCommand(consulta, connection);
+            command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.NombreDestinario));
+            command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.FechaCreacion));
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 
     public Presupuesto ObtenerPresupuestoPorId(int id){

@@ -1,0 +1,28 @@
+@model List<Presupuesto>
+
+<div class="text-center">
+    <h1 class="display-4">Presupuestos</h1>
+    <a class="btn btn-success" asp-area="" asp-controller="Presupuestos" asp-action="CrearPresupuesto">Agregar Presupuesto</a>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Destinario</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Ver Detalle</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var presupuesto in Model){
+                <tr>
+                    <td>@presupuesto.NombreDestinario</td>
+                    <td>@presupuesto.FechaCreacion.ToShortDateString()</td>
+                    <td><a asp-area="" asp-controller="Presupuestos" asp-action="PresupuestoDetalle" asp-route-id="@presupuesto.IdPresupuesto">Ver Detalle</a></td>
+                    <td><a asp-area="" asp-controller="Presupuestos" asp-action="EditarProducto" asp-route-id="@presupuesto.IdPresupuesto">Editar</a></td>
+                    <td><a asp-area="" asp-controller="Presupuestos" asp-action="EliminarProducto" asp-route-id="@presupuesto.IdPresupuesto">Eliminar</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
