@@ -3,20 +3,20 @@ using System.Linq;
 
 namespace tl2_tp6_2024_OgaitnaSZ.Models;
 public class Presupuesto{
-    public int idPresupuesto{ get; set; }
-    public string nombreDestinario{ get; set; }
-    public DateTime fechaCreacion { get; set; }
+    public int IdPresupuesto{ get; set; }
+    public string NombreDestinario{ get; set; }
+    public DateTime FechaCreacion { get; set; }
     public List<PresupuestoDetalle> Detalle { get; set; } = new List<PresupuestoDetalle>();
 
-    public Presupuesto(int Id, string NombreDestinario, DateTime FechaCreacion){
-        Id = idPresupuesto;
+    public Presupuesto(int idPresupuesto, string nombreDestinario, DateTime fechaCreacion){
+        IdPresupuesto = idPresupuesto;
         NombreDestinario = nombreDestinario;
         FechaCreacion = fechaCreacion;
     }
 
         public int MontoPresupuesto()
         {
-            return Detalle.Sum(d => d.producto.precio * d.cantidad);
+            return Detalle.Sum(d => d.Producto.Precio * d.Cantidad);
         }
 
         public int MontoPresupuestoConIva()
@@ -27,6 +27,6 @@ public class Presupuesto{
 
         public int CantidadProductos()
         {
-            return Detalle.Sum(d => d.cantidad);
+            return Detalle.Sum(d => d.Cantidad);
         }
 }

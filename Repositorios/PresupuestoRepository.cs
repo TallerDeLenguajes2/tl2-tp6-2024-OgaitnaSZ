@@ -10,8 +10,8 @@ public class PresupuestoRepository : IPresupuestoRepository{
             var consulta = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha)";
             connection.Open();
             var command = new SqliteCommand(consulta, connection);
-            command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.nombreDestinario));
-            command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.fechaCreacion));
+            command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.NombreDestinario));
+            command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.FechaCreacion));
             command.ExecuteNonQuery();
             connection.Close();
         }
@@ -65,7 +65,7 @@ public class PresupuestoRepository : IPresupuestoRepository{
             var consulta = "SELECT Cantidad FROM PresupuestosDetalle WHERE idPresupuesto = @idPresupuesto AND idProducto = @idProducto";
             using (var command = new SqliteCommand(consulta, connection)) {
                 command.Parameters.Add(new SqliteParameter("@idPresupuesto", idPresupuesto));
-                command.Parameters.Add(new SqliteParameter("@idProducto", producto.idProducto));
+                command.Parameters.Add(new SqliteParameter("@idProducto", producto.IdProducto));
                 var reader = command.ExecuteReader();
                 
                 if (reader.Read()) {
@@ -76,7 +76,7 @@ public class PresupuestoRepository : IPresupuestoRepository{
                     using (var updateCommand = new SqliteCommand(updateQuery, connection)) {
                         updateCommand.Parameters.Add(new SqliteParameter("@nuevaCantidad", nuevaCantidad));
                         updateCommand.Parameters.Add(new SqliteParameter("@idPresupuesto", idPresupuesto));
-                        updateCommand.Parameters.Add(new SqliteParameter("@idProducto", producto.idProducto));
+                        updateCommand.Parameters.Add(new SqliteParameter("@idProducto", producto.IdProducto));
                         updateCommand.ExecuteNonQuery();
                     }
                 } else {
@@ -84,7 +84,7 @@ public class PresupuestoRepository : IPresupuestoRepository{
                     var insertQuery = "INSERT INTO PresupuestosDetalle (idPresupuesto, idProducto, Cantidad) VALUES (@idPresupuesto, @idProducto, @cantidad)";
                     using (var insertCommand = new SqliteCommand(insertQuery, connection)) {
                         insertCommand.Parameters.Add(new SqliteParameter("@idPresupuesto", idPresupuesto));
-                        insertCommand.Parameters.Add(new SqliteParameter("@idProducto", producto.idProducto));
+                        insertCommand.Parameters.Add(new SqliteParameter("@idProducto", producto.IdProducto));
                         insertCommand.Parameters.Add(new SqliteParameter("@cantidad", cantidad));
                         insertCommand.ExecuteNonQuery();
                     }

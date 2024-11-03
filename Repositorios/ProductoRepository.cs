@@ -11,8 +11,8 @@ public class ProductoRepository : IProductoRepository{
             connection.Open();
 
             var command = new SqliteCommand(query, connection);
-            command.Parameters.Add(new SqliteParameter("@Descripcion", producto.descripcion));
-            command.Parameters.Add(new SqliteParameter("@Precio", producto.precio));
+            command.Parameters.Add(new SqliteParameter("@Descripcion", producto.Descripcion));
+            command.Parameters.Add(new SqliteParameter("@Precio", producto.Precio));
             command.ExecuteNonQuery();
             connection.Close();
         }
@@ -23,8 +23,8 @@ public class ProductoRepository : IProductoRepository{
             var query = "UPDATE Productos SET Descripcion= @Descripcion , Precio= @Precio WHERE idProducto=@id ";
             connection.Open();
             var command = new SqliteCommand(query, connection);
-            command.Parameters.Add(new SqliteParameter("@Descripcion", nuevoProducto.descripcion));
-            command.Parameters.Add(new SqliteParameter("@Precio", nuevoProducto.precio));
+            command.Parameters.Add(new SqliteParameter("@Descripcion", nuevoProducto.Descripcion));
+            command.Parameters.Add(new SqliteParameter("@Precio", nuevoProducto.Precio));
             command.Parameters.Add(new SqliteParameter("@id", id));
             command.ExecuteNonQuery();
             connection.Close();
@@ -36,16 +36,20 @@ public class ProductoRepository : IProductoRepository{
         using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
             string consulta = "SELECT * FROM Productos;";
             SqliteCommand command = new SqliteCommand(consulta, connection);
-            connection.Open();
-            using (SqliteDataReader reader = command.ExecuteReader()){
-                while (reader.Read()){
-                    int idDB = Convert.ToInt32(reader["idProducto"]);
-                    string descripcionDB = reader["Descripcion"].ToString();
-                    int precioDB = Convert.ToInt32(reader["Precio"]);
-                    listadoProductos.Add(new Producto(idDB, descripcionDB, precioDB));
+            try{
+                connection.Open();
+                using (SqliteDataReader reader = command.ExecuteReader()){
+                    while (reader.Read()){
+                        int idDB = Convert.ToInt32(reader["idProducto"]);
+                        string descripcionDB = reader["Descripcion"].ToString();
+                        int precioDB = Convert.ToInt32(reader["Precio"]);
+                        listadoProductos.Add(new Producto(idDB, descripcionDB, precioDB));
+                    }
                 }
+                connection.Close();
+            }catch(Exception ex){
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
             }
-            connection.Close();
         }
         return listadoProductos;
     }
