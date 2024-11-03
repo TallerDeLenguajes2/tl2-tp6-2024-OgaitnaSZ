@@ -35,6 +35,9 @@ public class ProductosController : Controller{
     /* ----- Modificar Producto ----- */
     public IActionResult EditarProducto(int id){
         Producto productoAModificar = ProductoRepository.ObtenerProductoPorId(id);
+        if(productoAModificar == null){
+            return NotFound();
+        }
         return View(productoAModificar);
     }
 
@@ -50,6 +53,9 @@ public class ProductosController : Controller{
     /* ----- Eliminar Producto ----- */
     public IActionResult EliminarProducto(int id){
         Producto productoAEliminar = ProductoRepository.ObtenerProductoPorId(id);
+        if(productoAEliminar == null){
+            return NotFound();
+        }
         return View(productoAEliminar);
     }
 
