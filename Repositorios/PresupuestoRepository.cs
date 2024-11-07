@@ -26,14 +26,19 @@ public class PresupuestoRepository : IPresupuestoRepository{
     }
 
     public void CrearPresupuesto(Presupuesto presupuesto){
-        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
-            var consulta = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha)";
-            connection.Open();
-            var command = new SqliteCommand(consulta, connection);
-            command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.NombreDestinatario));
-            command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.FechaCreacion));
-            command.ExecuteNonQuery();
-            connection.Close();
+        try{
+            using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+                presupuesto.FechaCreacion = DateTime.Now;  //Fecha de creacion del presupuesto
+                var consulta = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha)";
+                connection.Open();
+                var command = new SqliteCommand(consulta, connection);
+                command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.NombreDestinatario));
+                command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.FechaCreacion));
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }catch(Exception ex){
+            Console.WriteLine("Error al crear un presupuesto: " + ex);
         }
     }
 
@@ -59,6 +64,88 @@ public class PresupuestoRepository : IPresupuestoRepository{
             }
         }catch(Exception ex){
             Console.WriteLine("Error al encontrar producto: " + ex);
+        }
+        return null;
+    }
+
+    public void EliminarPresupuesto(int id){
+        try{
+            using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+                var consulta = "DELETE FROM Presupuestos WHERE idPresupuesto=@id ";
+                connection.Open();
+                var command = new SqliteCommand(consulta, connection);
+                command.Parameters.Add(new SqliteParameter("@id", id));
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }catch(Exception ex){
+            Console.WriteLine("Error al eliminar presupuesto: " + ex);
+        }
+        EliminarProductosDePresupuesto(id);
+    }
+
+    public void EliminarProductosDePresupuesto(int id){
+        try{
+            using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+                var consulta = "DELETE FROM PresupuestosDetalle WHERE idPresupuesto=@id ";
+                connection.Open();
+                var command = new SqliteCommand(consulta, connection);
+                command.Parameters.Add(new SqliteParameter("@id", id));
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }catch(Exception ex){
+            Console.WriteLine("Error al eliminar presupuesto: " + ex);
+        }
+    }
+
+    /*
+        Tengo que mostrar los productos, las cantidades y los precios*cantidad
+
+        1. Buscar los id de los productos de las filas que tienen el idPresupuesto
+        2. Buscar los productos correspondientes a esos id
+        3. Mostrar los nombres y precios de los productos (Productos)
+           y las cantidades (ProductoDetalle)
+    */
+    public List<PresupuestoDetalle> ObtenerDetalles(int idPresupuesto){
+        List<PresupuestoDetalle> detalles = new();
+
+        //Obtener producto y cantidad
+        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+            string consulta = "SELECT * FROM PresupuestosDetalle WHERE idPresupuesto=@id;";
+            SqliteCommand command = new SqliteCommand(consulta, connection);
+            connection.Open();
+            command.Parameters.Add(new SqliteParameter("@id", idPresupuesto));
+            using (SqliteDataReader reader = command.ExecuteReader()){
+                while (reader.Read()){
+                    int idProductoDB = Convert.ToInt32(reader["idProducto"]);
+                    int cantidadDB = Convert.ToInt32(reader["Cantidad"]);
+                    // Buscar producto por id
+                    PresupuestoDetalle detalle = new(obtenerProductoPorId(idProductoDB), cantidadDB);
+                    detalles.Add(detalle);
+                }
+            }
+            connection.Close();
+        }
+        return detalles;
+    }
+
+    //Obtener producto por ID
+    public Producto obtenerProductoPorId(int id){
+        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+            string consulta = "SELECT * FROM Productos WHERE idProducto=@id;";
+            SqliteCommand command = new SqliteCommand(consulta, connection);
+            connection.Open();
+            command.Parameters.Add(new SqliteParameter("@id", id));
+            using (SqliteDataReader reader = command.ExecuteReader()){
+                while (reader.Read()){
+                    int idDB = Convert.ToInt32(reader["idProducto"]);
+                    string descripcionDB = reader["Descripcion"].ToString();
+                    int precioDB = Convert.ToInt32(reader["Precio"]);
+                    return new Producto(idDB, descripcionDB, precioDB);
+                }
+            }
+            connection.Close();
         }
         return null;
     }
@@ -96,17 +183,6 @@ public class PresupuestoRepository : IPresupuestoRepository{
                     }
                 }
             }
-            connection.Close();
-        }
-    }
-
-    public void EliminarPresupuesto(int id){
-        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
-            var consulta = "DELETE FROM Presupuestos WHERE idPresupuesto=@id ";
-            connection.Open();
-            var command = new SqliteCommand(consulta, connection);
-            command.Parameters.Add(new SqliteParameter("@id", id));
-            command.ExecuteNonQuery();
             connection.Close();
         }
     }

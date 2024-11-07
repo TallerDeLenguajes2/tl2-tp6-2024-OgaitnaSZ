@@ -1,0 +1,36 @@
+@model List<PresupuestoDetalle>
+@{
+    int total = 0;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Detalles de presupuesto</h1>
+    <div class="container">
+        <a class="btn btn-danger" asp-area="" asp-controller="Presupuestos" asp-action="ListarPresupuestos">Volver</a>
+        <a class="btn btn-success" asp-area="" asp-controller="Productos" asp-action="AgregarProductoAPresupuesto">Agregar Producto</a>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detalle in Model){
+                <tr>
+                    <td>@detalle.Producto.Descripcion</td>
+                    <td>@detalle.Cantidad</td>
+                    <td>@detalle.Producto.Precio</td> @{total+=detalle.Producto.Precio;}
+                    <td><a asp-area="" asp-controller="Productos" asp-action="EliminarProducto" asp-route-id="@detalle.Producto.IdProducto">Eliminar</a></td>
+                </tr>
+            }
+            <tr>
+                <td col-span="2">Total: </td>
+                <td>@total</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

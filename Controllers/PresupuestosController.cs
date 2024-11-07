@@ -25,7 +25,6 @@ public class PresupuestosController : Controller{
 
     [HttpPost]
     public IActionResult Crear(Presupuesto presupuesto){
-        presupuesto.FechaCreacion = DateTime.Now;  //Fecha de creacion del presupuesto
         if (ModelState.IsValid){
             PresupuestoRepository.CrearPresupuesto(presupuesto);
             return RedirectToAction("ListarPresupuestos");
@@ -33,15 +32,14 @@ public class PresupuestosController : Controller{
         return View("ListarPresupuestos", presupuesto);
     }
 
-    /* ----- Eliminar Producto ----- */
+    /* ----- Eliminar Presupuesto ----- */
     public IActionResult EliminarPresupuesto(int id){
-        Presupuesto presupuestoAModificar = PresupuestoRepository.ObtenerPresupuestoPorId(id);
-        if(presupuestoAModificar == null){
+        Presupuesto presupuestoAEliminar = PresupuestoRepository.ObtenerPresupuestoPorId(id);
+        if(presupuestoAEliminar == null){
             return NotFound();
         }
-        return View(presupuestoAModificar);
+        return View(presupuestoAEliminar);
     }
-
     [HttpGet]
     public IActionResult Eliminar(int id){
         if (ModelState.IsValid){
@@ -51,21 +49,18 @@ public class PresupuestosController : Controller{
         return View("ListarPresupuestos");
     }
 
-    /* ----- Modificar Presupuesto ----- */
-    public IActionResult EditarPresupuesto(int id){
-        Presupuesto presupuestoAModificar = PresupuestoRepository.ObtenerPresupuestoPorId(id);
-        if(presupuestoAModificar == null){
+    /* ----- Presupuesto Detalle ----- */
+    public IActionResult PresupuestoDetalle(int id){
+        Presupuesto presupuestoAMostrar = PresupuestoRepository.ObtenerPresupuestoPorId(id);
+        if(presupuestoAMostrar == null){
             return NotFound();
         }
-        return View(presupuestoAModificar);
+        List<PresupuestoDetalle> detalles = PresupuestoRepository.ObtenerDetalles(id);
+        return View(detalles);
     }
 
-    [HttpPost]
-    public IActionResult Editar(Presupuesto presupuesto){
-        if (ModelState.IsValid){
-            
-            return RedirectToAction("ListarProductos");
-        }
+    [HttpGet]
+    public IActionResult AgregarProductoAPresupuesto(int idPresupuesto){
         return View("EditarProducto", presupuesto);
     }
 }
