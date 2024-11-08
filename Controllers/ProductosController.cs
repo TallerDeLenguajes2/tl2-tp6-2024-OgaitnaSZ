@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using tl2_tp6_2024_OgaitnaSZ.Models;
 using Repositorios;
 

@@ -1,8 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace tl2_tp6_2024_OgaitnaSZ.Models;
 public class Cliente{
     public int IdCliente{ get; set; }
+    [Required]
     public string Nombre{ get; set; }
+    [EmailAddress]
     public string Email{ get; set; }
+    [Phone]
     public string Telefono{ get; set; }
 
     public Cliente(){}
