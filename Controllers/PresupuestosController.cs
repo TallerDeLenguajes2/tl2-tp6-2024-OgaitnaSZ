@@ -20,7 +20,8 @@ public class PresupuestosController : Controller{
 
     /* ----- Crear Presupuesto ----- */
     public IActionResult CrearPresupuesto(){
-        return View();
+        List<Cliente> clientes = PresupuestoRepository.ObtenerClientes();
+        return View(clientes);
     }
 
     [HttpPost]
@@ -57,14 +58,14 @@ public class PresupuestosController : Controller{
             return NotFound();
         }
         List<PresupuestoDetalle> detalles = PresupuestoRepository.ObtenerDetalles(id);
-        MiViewModel viewModel = new MiViewModel{detalles = detalles , idPresupuesto = id};
+        ViweModelDetallesPresupuesto viewModel = new ViweModelDetallesPresupuesto{detalles = detalles , idPresupuesto = id};
         return View(viewModel);
     }
 
     public IActionResult AgregarProductosAPresupuesto(int idPresupuesto){
         List<Producto> productos = PresupuestoRepository.ObtenerProductos();
-        var MiViewModel2 = new MiViewModel2{productos = productos, idPresupuesto = idPresupuesto};
-        return View("AgregarProductosAPresupuesto", MiViewModel2);
+        var datosForm = new ViewModelNuevoPresupuesto{productos = productos ,idPresupuesto = idPresupuesto};
+        return View("AgregarProductosAPresupuesto", datosForm);
     }
 
     [HttpPost]

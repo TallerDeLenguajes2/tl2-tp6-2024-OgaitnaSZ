@@ -209,6 +209,29 @@ public class PresupuestoRepository : IPresupuestoRepository{
         }
         return listadoProductos;
     }
+    public List<Cliente> ObtenerClientes(){
+        List<Cliente> listadoClientes = new();
+        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+            string consulta = "SELECT * FROM Clientes;";
+            SqliteCommand command = new SqliteCommand(consulta, connection);
+            try{
+                connection.Open();
+                using (SqliteDataReader reader = command.ExecuteReader()){
+                    while (reader.Read()){
+                        int idDB = Convert.ToInt32(reader["idCliente"]);
+                        string nombreDB = reader["Nombre"].ToString();
+                        string emailDB = reader["Email"].ToString();
+                        string telDB = reader["Telefono"].ToString();
+                        listadoClientes.Add(new Cliente(idDB, nombreDB, emailDB, telDB));
+                    }
+                }
+                connection.Close();
+            }catch(Exception ex){
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+        return listadoClientes;
+    }
     public void EliminarProductoDelPresupuesto(int idProducto, int idPresupuesto){
         try{
             using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){

@@ -4,14 +4,14 @@ using System.Linq;
 namespace tl2_tp6_2024_OgaitnaSZ.Models;
 public class Presupuesto{
     public int IdPresupuesto{ get; set; }
-    public string NombreDestinatario{ get; set; }
+    public Cliente Cliente{ get; set; }
     public DateTime FechaCreacion { get; set; }
     public List<PresupuestoDetalle> Detalle { get; set; } = new List<PresupuestoDetalle>();
 
     public Presupuesto(){}
-    public Presupuesto(int idPresupuesto, string nombreDestinatario, DateTime fechaCreacion){
+    public Presupuesto(int idPresupuesto, Cliente cliente, DateTime fechaCreacion){
         IdPresupuesto = idPresupuesto;
-        NombreDestinatario = nombreDestinatario;
+        Cliente = cliente;
         FechaCreacion = fechaCreacion;
     }
 
