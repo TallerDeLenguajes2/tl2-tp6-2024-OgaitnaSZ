@@ -1,4 +1,4 @@
-@model List<PresupuestoDetalle>
+@model MiViewModel
 @{
     int total = 0;
 }
@@ -7,7 +7,7 @@
     <h1 class="display-4">Detalles de presupuesto</h1>
     <div class="container">
         <a class="btn btn-danger" asp-area="" asp-controller="Presupuestos" asp-action="ListarPresupuestos">Volver</a>
-        <a class="btn btn-success" asp-area="" asp-controller="Productos" asp-action="AgregarProductoAPresupuesto">Agregar Producto</a>
+        <a class="btn btn-success" asp-area="" asp-controller="Presupuestos" asp-action="AgregarProductoAPresupuesto" asp-route-idPresupuesto="@Model.idPresupuesto">Agregar Producto</a>
     </div>
     <table class="table">
         <thead class="thead-dark">
@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var detalle in Model){
+            @foreach (var detalle in Model.detalles){
                 <tr>
                     <td>@detalle.Producto.Descripcion</td>
                     <td>@detalle.Cantidad</td>
@@ -28,7 +28,7 @@
                 </tr>
             }
             <tr>
-                <td col-span="2">Total: </td>
+                <td colspan="2">Total: </td>
                 <td>@total</td>
             </tr>
         </tbody>

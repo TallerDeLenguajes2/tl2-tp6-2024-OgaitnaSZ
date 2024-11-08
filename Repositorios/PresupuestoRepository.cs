@@ -99,14 +99,7 @@ public class PresupuestoRepository : IPresupuestoRepository{
         }
     }
 
-    /*
-        Tengo que mostrar los productos, las cantidades y los precios*cantidad
-
-        1. Buscar los id de los productos de las filas que tienen el idPresupuesto
-        2. Buscar los productos correspondientes a esos id
-        3. Mostrar los nombres y precios de los productos (Productos)
-           y las cantidades (ProductoDetalle)
-    */
+    /* Obtener detalles del presupuesto */
     public List<PresupuestoDetalle> ObtenerDetalles(int idPresupuesto){
         List<PresupuestoDetalle> detalles = new();
 
@@ -185,5 +178,28 @@ public class PresupuestoRepository : IPresupuestoRepository{
             }
             connection.Close();
         }
+    }
+
+    public List<Producto> ObtenerProductos(){
+        List<Producto> listadoProductos = new();
+        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+            string consulta = "SELECT * FROM Productos;";
+            SqliteCommand command = new SqliteCommand(consulta, connection);
+            try{
+                connection.Open();
+                using (SqliteDataReader reader = command.ExecuteReader()){
+                    while (reader.Read()){
+                        int idDB = Convert.ToInt32(reader["idProducto"]);
+                        string descripcionDB = reader["Descripcion"].ToString();
+                        int precioDB = Convert.ToInt32(reader["Precio"]);
+                        listadoProductos.Add(new Producto(idDB, descripcionDB, precioDB));
+                    }
+                }
+                connection.Close();
+            }catch(Exception ex){
+                Console.WriteLine($"Error al conectar con la base de datos: {ex.Message}");
+            }
+        }
+        return listadoProductos;
     }
 }

@@ -1,0 +1,20 @@
+@model MiViewModel2
+
+<h2>Seleccione un producto a agregar:</h2>
+<a class="btn btn-success" asp-area="" asp-controller="Productos" asp-action="CrearProducto">Agregar Nuevo Producto</a>
+<form asp-action="Agregar" asp-controller="Presupuestos" method="post">
+  @foreach (var producto in Model.productos){
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="idproducto" value="@producto.IdProducto">
+      <label class="form-check-label" for="flexRadioDefault2">
+        @producto.Descripcion | $@producto.Precio
+      </label>
+    </div>
+  }
+  <div class="form-group">
+    <label for="Cantidad">Cantidad</label>
+    <input type="number" name="cantidad" class="form-control">
+  </div>
+  <input type="hidden" name="idPresupuesto" value="@Model.idPresupuesto" class="form-control">
+  <button type="submit" class="btn btn-primary">Agregar a Presupuesto</button>
+</form>

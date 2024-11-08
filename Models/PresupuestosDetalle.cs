@@ -8,3 +8,12 @@ public class PresupuestoDetalle{
         Cantidad = cantidad;
     }
 }
+public class MiViewModel{
+    public List<PresupuestoDetalle> detalles{get;set;}
+    public int idPresupuesto {get;set;}
+}
+
+public class MiViewModel2{
+    public List<Producto> productos{get;set;}
+    public int idPresupuesto {get;set;}
+}

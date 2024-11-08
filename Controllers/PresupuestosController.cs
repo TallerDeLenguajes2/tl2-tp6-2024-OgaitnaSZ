@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp6_2024_OgaitnaSZ.Models;
 using Repositorios;
+using System.Security.Cryptography.X509Certificates;
 
 namespace tp_san.Controllers;
 
@@ -29,7 +30,7 @@ public class PresupuestosController : Controller{
             PresupuestoRepository.CrearPresupuesto(presupuesto);
             return RedirectToAction("ListarPresupuestos");
         }
-        return View("ListarPresupuestos", presupuesto);
+        return View("CrearPresupuesto", presupuesto);
     }
 
     /* ----- Eliminar Presupuesto ----- */
@@ -50,17 +51,27 @@ public class PresupuestosController : Controller{
     }
 
     /* ----- Presupuesto Detalle ----- */
+
     public IActionResult PresupuestoDetalle(int id){
         Presupuesto presupuestoAMostrar = PresupuestoRepository.ObtenerPresupuestoPorId(id);
         if(presupuestoAMostrar == null){
             return NotFound();
         }
         List<PresupuestoDetalle> detalles = PresupuestoRepository.ObtenerDetalles(id);
-        return View(detalles);
+        MiViewModel viewModel = new MiViewModel{detalles = detalles , idPresupuesto = id};
+        return View(viewModel);
     }
 
-    [HttpGet]
     public IActionResult AgregarProductoAPresupuesto(int idPresupuesto){
-        return View("EditarProducto", presupuesto);
+        List<Producto> productos = PresupuestoRepository.ObtenerProductos();
+        var MiViewModel2 = new MiViewModel2{productos = productos, idPresupuesto = idPresupuesto};
+        return View("AgregarProductoAPresupuesto", MiViewModel2);
+    }
+
+    [HttpPost]
+    public IActionResult Agregar(int idProducto, int cantidad, int idPresupuesto){
+        Producto producto = PresupuestoRepository.obtenerProductoPorId(idProducto);
+        PresupuestoRepository.AgregarProductoAPresupuesto(idPresupuesto, producto, cantidad);
+        return RedirectToAction("PresupuestoDetalle", new { id = idPresupuesto });
     }
 }

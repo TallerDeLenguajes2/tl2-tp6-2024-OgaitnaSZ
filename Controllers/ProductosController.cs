@@ -33,7 +33,7 @@ public class ProductosController : Controller{
     }
 
     /* ----- Modificar Producto ----- */
-    public IActionResult EditarProducto(int id){
+    public IActionResult ModificarProducto(int id){
         Producto productoAModificar = ProductoRepository.ObtenerProductoPorId(id);
         if(productoAModificar == null){
             return NotFound();
@@ -42,12 +42,12 @@ public class ProductosController : Controller{
     }
 
     [HttpPost]
-    public IActionResult Editar(Producto producto){
+    public IActionResult Modificar(Producto producto){
         if (ModelState.IsValid){
             ProductoRepository.ModificarProducto(producto.IdProducto ,producto);
             return RedirectToAction("ListarProductos");
         }
-        return View("EditarProducto", producto);
+        return View("ModificarProducto", producto);
     }
 
     /* ----- Eliminar Producto ----- */

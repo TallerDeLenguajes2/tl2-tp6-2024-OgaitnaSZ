@@ -8,7 +8,7 @@
             <tr>
                 <th scope="col">Descripcion</th>
                 <th scope="col">Precio</th>
-                <th scope="col">Editar</th>
+                <th scope="col">Modificar</th>
                 <th scope="col">Eliminar</th>
             </tr>
         </thead>
@@ -17,7 +17,7 @@
                 <tr>
                     <td>@producto.Descripcion</td>
                     <td>@producto.Precio</td>
-                    <td><a asp-area="" asp-controller="Productos" asp-action="EditarProducto" asp-route-id="@producto.IdProducto">Editar</a></td>
+                    <td><a asp-area="" asp-controller="Productos" asp-action="ModificarProducto" asp-route-id="@producto.IdProducto">Modificar</a></td>
                     <td><a asp-area="" asp-controller="Productos" asp-action="EliminarProducto" asp-route-id="@producto.IdProducto">Eliminar</a></td>
                 </tr>
             }
