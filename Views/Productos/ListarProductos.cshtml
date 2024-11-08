@@ -1,26 +1,28 @@
 ﻿@model List<Producto>
 
-<div class="text-center">
-    <h1 class="display-4">Productos</h1>
+<div class="container">
+    <h1 class="display-4 text-center">Listado de Productos</h1>
+    <div class="d-flex flex-column justify-content-center align-items-center">
     <a class="btn btn-success" asp-area="" asp-controller="Productos" asp-action="CrearProducto">Agregar Producto</a>
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Modificar</th>
-                <th scope="col">Eliminar</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var producto in Model){
+        <table class="table w-50">
+            <thead class="thead-dark">
                 <tr>
-                    <td>@producto.Descripcion</td>
-                    <td>@producto.Precio</td>
-                    <td><a asp-area="" asp-controller="Productos" asp-action="ModificarProducto" asp-route-id="@producto.IdProducto">Modificar</a></td>
-                    <td><a asp-area="" asp-controller="Productos" asp-action="EliminarProducto" asp-route-id="@producto.IdProducto">Eliminar</a></td>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col" class="text-center">Modificar</th>
+                    <th scope="col" class="text-center">Eliminar</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var producto in Model){
+                    <tr>
+                        <td>@producto.Descripcion</td>
+                        <td>$ @producto.Precio.ToString("N0")</td>
+                        <td class="text-center"><a asp-area="" asp-controller="Productos" asp-action="ModificarProducto" asp-route-id="@producto.IdProducto"><i class="bi bi-pencil-square"></i></a></td>
+                        <td class="text-center"><a asp-area="" asp-controller="Productos" asp-action="EliminarProducto" asp-route-id="@producto.IdProducto"><i class="bi bi-trash3"></i></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>    
+    </div>
 </div>
