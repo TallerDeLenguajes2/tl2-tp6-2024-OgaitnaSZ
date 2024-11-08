@@ -6,6 +6,16 @@ using Repositorios;
 namespace tp_san.Controllers;
 
 public class ClientesController : Controller{
+    private readonly IClienteRepository ClienteRepository;
+    public ClientesController(IClienteRepository clienteRepository){
+        ClienteRepository = clienteRepository;
+    }
+
+    /* Listar Clientes */
+    public IActionResult ListarClientes(){
+        List<Cliente> clientes = ClienteRepository.ListarClientes();
+        return View(clientes);
+    }
 
     /* ----- Crear Cliente ----- */
     public IActionResult CrearCliente(){
@@ -15,8 +25,8 @@ public class ClientesController : Controller{
     [HttpPost]
     public IActionResult Crear(Cliente cliente){
         if (ModelState.IsValid){
-            //ProductoRepository.CrearProducto(producto);
-            //return RedirectToAction("ListarProductos");
+            ClienteRepository.CrearCliente(cliente);
+            return RedirectToAction("ListarProductos");
         }
         return View("CrearCliente", cliente);
     }
