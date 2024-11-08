@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Repositorios;
 public interface IPresupuestoRepository{
     List<Presupuesto> ListarPresupuestos();
-    void CrearPresupuesto(Presupuesto presupuesto);
+    int CrearPresupuesto(Presupuesto presupuesto);
     Presupuesto ObtenerPresupuestoPorId(int id);
     void EliminarPresupuesto(int id);
     void EliminarProductosDePresupuesto(int id);

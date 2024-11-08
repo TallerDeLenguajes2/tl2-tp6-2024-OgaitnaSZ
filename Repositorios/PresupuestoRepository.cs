@@ -25,20 +25,27 @@ public class PresupuestoRepository : IPresupuestoRepository{
         return listaPresupuestos;
     }
 
-    public void CrearPresupuesto(Presupuesto presupuesto){
+    public int CrearPresupuesto(Presupuesto presupuesto){
         try{
             using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+                connection.Open();
                 presupuesto.FechaCreacion = DateTime.Now;  //Fecha de creacion del presupuesto
                 var consulta = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha)";
-                connection.Open();
                 var command = new SqliteCommand(consulta, connection);
                 command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.NombreDestinatario));
                 command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.FechaCreacion));
                 command.ExecuteNonQuery();
+
+                //Obtener el último ID insertado
+                var consultaId = "SELECT last_insert_rowid();";
+                var commandId = new SqliteCommand(consultaId, connection);
+                int idPresupuesto = Convert.ToInt32(commandId.ExecuteScalar());
                 connection.Close();
+                return idPresupuesto;
             }
         }catch(Exception ex){
             Console.WriteLine("Error al crear un presupuesto: " + ex);
+            return 0;
         }
     }
 

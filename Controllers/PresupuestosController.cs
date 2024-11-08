@@ -2,7 +2,6 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp6_2024_OgaitnaSZ.Models;
 using Repositorios;
-using System.Security.Cryptography.X509Certificates;
 
 namespace tp_san.Controllers;
 
@@ -27,8 +26,8 @@ public class PresupuestosController : Controller{
     [HttpPost]
     public IActionResult Crear(Presupuesto presupuesto){
         if (ModelState.IsValid){
-            PresupuestoRepository.CrearPresupuesto(presupuesto);
-            return RedirectToAction("ListarPresupuestos");
+            int idPresupuesto = PresupuestoRepository.CrearPresupuesto(presupuesto);
+            return RedirectToAction("AgregarProductosAPresupuesto", "Presupuestos", new { idPresupuesto = idPresupuesto });
         }
         return View("CrearPresupuesto", presupuesto);
     }
@@ -62,18 +61,25 @@ public class PresupuestosController : Controller{
         return View(viewModel);
     }
 
-    public IActionResult AgregarProductoAPresupuesto(int idPresupuesto){
+    public IActionResult AgregarProductosAPresupuesto(int idPresupuesto){
         List<Producto> productos = PresupuestoRepository.ObtenerProductos();
         var MiViewModel2 = new MiViewModel2{productos = productos, idPresupuesto = idPresupuesto};
-        return View("AgregarProductoAPresupuesto", MiViewModel2);
+        return View("AgregarProductosAPresupuesto", MiViewModel2);
     }
 
     [HttpPost]
-    public IActionResult Agregar(int idProducto, int cantidad, int idPresupuesto){
-        Producto producto = PresupuestoRepository.obtenerProductoPorId(idProducto);
-        PresupuestoRepository.AgregarProductoAPresupuesto(idPresupuesto, producto, cantidad);
+    public IActionResult Agregar(List<int> idProductos, List<int> cantidades, int idPresupuesto){
+        if (idProductos != null && cantidades != null && idProductos.Count == cantidades.Count){
+            for (int i = 0; i < idProductos.Count; i++){
+                int idProducto = idProductos[i];
+                int cantidad = cantidades[i];
+                Producto producto = PresupuestoRepository.obtenerProductoPorId(idProducto);
+                PresupuestoRepository.AgregarProductoAPresupuesto(idPresupuesto, producto, cantidad);
+            }
+        }
         return RedirectToAction("PresupuestoDetalle", new { id = idPresupuesto });
     }
+
     [HttpGet]
     public IActionResult EliminarProductoDelPresupuesto(int idProducto, int idPresupuesto){
         PresupuestoRepository.EliminarProductoDelPresupuesto(idProducto, idPresupuesto);
