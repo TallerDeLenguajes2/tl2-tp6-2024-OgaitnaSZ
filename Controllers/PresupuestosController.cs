@@ -74,4 +74,9 @@ public class PresupuestosController : Controller{
         PresupuestoRepository.AgregarProductoAPresupuesto(idPresupuesto, producto, cantidad);
         return RedirectToAction("PresupuestoDetalle", new { id = idPresupuesto });
     }
+    [HttpGet]
+    public IActionResult EliminarProductoDelPresupuesto(int idProducto, int idPresupuesto){
+        PresupuestoRepository.EliminarProductoDelPresupuesto(idProducto, idPresupuesto);
+        return RedirectToAction("PresupuestoDetalle", new { id = idPresupuesto });
+    }
 }

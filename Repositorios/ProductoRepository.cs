@@ -86,11 +86,20 @@ public class ProductoRepository : IProductoRepository{
     public void EliminarProducto(int id){
         try{
             using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
-                var consulta = "DELETE FROM Productos WHERE idProducto=@id ";
                 connection.Open();
-                var command = new SqliteCommand(consulta, connection);
-                command.Parameters.Add(new SqliteParameter("@id", id));
-                command.ExecuteNonQuery();
+
+                //Eliminar producto de los presupuestos
+                var consultaDetalle = "DELETE FROM PresupuestosDetalle WHERE idProducto = @id";
+                var commandDetalle = new SqliteCommand(consultaDetalle, connection);
+                commandDetalle.Parameters.Add(new SqliteParameter("@id", id));
+                commandDetalle.ExecuteNonQuery();
+
+                //Eliminar producto del listado
+                var consultaProducto = "DELETE FROM Productos WHERE idProducto=@id ";
+                var commandProducto = new SqliteCommand(consultaProducto, connection);
+                commandProducto.Parameters.Add(new SqliteParameter("@id", id));
+                commandProducto.ExecuteNonQuery();
+
                 connection.Close();
             }
         }catch(Exception ex){

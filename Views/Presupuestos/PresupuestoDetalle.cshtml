@@ -27,7 +27,7 @@
                         <td class="text-center">@detalle.Cantidad</td>
                         <td class="text-center">$@detalle.Producto.Precio.ToString("N0")</td>
                         <td class="text-center">$@((detalle.Producto.Precio*detalle.Cantidad).ToString("N0"))</td> @{total+=detalle.Producto.Precio*detalle.Cantidad;}
-                        <td class="text-center"><a asp-area="" asp-controller="Productos" asp-action="EliminarProducto" asp-route-id="@detalle.Producto.IdProducto"><i class="bi bi-trash3"></i></a></td>
+                        <td class="text-center"><a asp-area="" asp-controller="Presupuestos" asp-action="EliminarProductoDelPresupuesto" asp-route-idProducto="@detalle.Producto.IdProducto" asp-route-idPresupuesto="@Model.idPresupuesto"><i class="bi bi-trash3"></i></a></td>
                     </tr>
                 }
             </tbody>

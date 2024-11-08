@@ -11,4 +11,5 @@ public interface IPresupuestoRepository{
     public Producto obtenerProductoPorId(int id);
     void AgregarProductoAPresupuesto(int idPresupuesto, Producto producto, int cantidad);
     public List<Producto> ObtenerProductos();
+    void EliminarProductoDelPresupuesto(int idProducto, int idPresupuesto);
 }

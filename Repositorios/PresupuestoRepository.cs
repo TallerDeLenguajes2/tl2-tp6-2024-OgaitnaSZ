@@ -202,4 +202,22 @@ public class PresupuestoRepository : IPresupuestoRepository{
         }
         return listadoProductos;
     }
+    public void EliminarProductoDelPresupuesto(int idProducto, int idPresupuesto){
+        try{
+            using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+                connection.Open();
+
+                //Eliminar producto de los presupuestos
+                var consulta = "DELETE FROM PresupuestosDetalle WHERE idProducto = @idProducto AND idPresupuesto = @idPresupuesto";
+                var command = new SqliteCommand(consulta, connection);
+                command.Parameters.Add(new SqliteParameter("@idProducto", idProducto));
+                command.Parameters.Add(new SqliteParameter("@idPresupuesto", idPresupuesto));
+                command.ExecuteNonQuery();
+
+                connection.Close();
+            }
+        }catch(Exception ex){
+            Console.WriteLine("Error al eliminar el producto del presupuesto: " + ex.Message);
+        }
+    }
 }
