@@ -25,8 +25,12 @@ public class PresupuestosController : Controller{
     }
 
     [HttpPost]
-    public IActionResult Crear(Presupuesto presupuesto){
+    public IActionResult Crear(int IdCliente){
+        Console.WriteLine($"Creando presupuesto para el cliente {IdCliente}");
+        Presupuesto presupuesto = new Presupuesto();
         if (ModelState.IsValid){
+            Cliente cliente = PresupuestoRepository.ObtenerClientePorId(IdCliente);
+            presupuesto.Cliente = cliente;
             int idPresupuesto = PresupuestoRepository.CrearPresupuesto(presupuesto);
             return RedirectToAction("AgregarProductosAPresupuesto", "Presupuestos", new { idPresupuesto = idPresupuesto });
         }

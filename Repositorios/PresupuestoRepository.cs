@@ -18,7 +18,7 @@ public class PresupuestoRepository : IPresupuestoRepository{
                     string FechaCreacionDB = reader["FechaCreacion"].ToString();
                     DateTime fecha = DateTime.Parse(FechaCreacionDB);
 
-                    Cliente cliente = obtenerClientePorId(idCliente);
+                    Cliente cliente = ObtenerClientePorId(idCliente);
                     listaPresupuestos.Add(new Presupuesto(IdPresupuestoDB, cliente, fecha));
                 }
             }
@@ -32,9 +32,9 @@ public class PresupuestoRepository : IPresupuestoRepository{
             using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
                 connection.Open();
                 presupuesto.FechaCreacion = DateTime.Now;  //Fecha de creacion del presupuesto
-                var consulta = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha)";
+                var consulta = "INSERT INTO Presupuestos (idCliente, FechaCreacion) VALUES (@idCliente, @Fecha)";
                 var command = new SqliteCommand(consulta, connection);
-                command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.Cliente.Nombre));
+                command.Parameters.Add(new SqliteParameter("@idCliente", presupuesto.Cliente.IdCliente));
                 command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.FechaCreacion));
                 command.ExecuteNonQuery();
 
@@ -67,7 +67,7 @@ public class PresupuestoRepository : IPresupuestoRepository{
                         DateTime fecha;
                         DateTime.TryParse(reader["FechaCreacion"]?.ToString(), out fecha);
 
-                        Cliente cliente = obtenerClientePorId(idCliente);
+                        Cliente cliente = ObtenerClientePorId(idCliente);
                         return new Presupuesto(idDB, cliente, fecha);
                     }
                 }
@@ -78,7 +78,7 @@ public class PresupuestoRepository : IPresupuestoRepository{
         return null;
     }
 
-    public Cliente obtenerClientePorId(int id){
+    public Cliente ObtenerClientePorId(int id){
         using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
             string consulta = "SELECT * FROM Clientes WHERE idCliente=@id;";
             SqliteCommand command = new SqliteCommand(consulta, connection);
