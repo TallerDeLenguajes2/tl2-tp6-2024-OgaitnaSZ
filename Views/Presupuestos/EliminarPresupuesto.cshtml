@@ -1,7 +1,7 @@
 @model tl2_tp6_2024_OgaitnaSZ.Models.Presupuesto;
 
 <div class="d-flex flex-column justify-content-center align-items-center">
-    <p>Esta seguro que desea eliminar el presupuesto de <strong>@Model.NombreDestinatario</strong>?</p>
+    <p>Esta seguro que desea eliminar el presupuesto de <strong>@Model.Cliente.Nombre</strong>?</p>
     <div class="d-flex flex-row">
         <a class="btn btn-success me-3" asp-area="" asp-controller="Presupuestos" asp-action="Eliminar" asp-route-id="@Model.IdPresupuesto">Aceptar</a>
         <a class="btn btn-danger" asp-area="" asp-controller="Presupuestos" asp-action="ListarPresupuestos">Cancelar</a>

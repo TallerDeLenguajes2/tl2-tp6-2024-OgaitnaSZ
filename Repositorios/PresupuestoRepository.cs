@@ -14,10 +14,12 @@ public class PresupuestoRepository : IPresupuestoRepository{
             using (SqliteDataReader reader = command.ExecuteReader()){
                 while (reader.Read()){
                     int IdPresupuestoDB = Convert.ToInt32(reader["idPresupuesto"]);
-                    string NombreDestinatarioDB = reader["NombreDestinatario"].ToString();
+                    int idCliente = Convert.ToInt32(reader["idCliente"]);
                     string FechaCreacionDB = reader["FechaCreacion"].ToString();
                     DateTime fecha = DateTime.Parse(FechaCreacionDB);
-                    listaPresupuestos.Add(new Presupuesto(IdPresupuestoDB, NombreDestinatarioDB, fecha));
+
+                    Cliente cliente = obtenerClientePorId(idCliente);
+                    listaPresupuestos.Add(new Presupuesto(IdPresupuestoDB, cliente, fecha));
                 }
             }
             connection.Close();
@@ -32,7 +34,7 @@ public class PresupuestoRepository : IPresupuestoRepository{
                 presupuesto.FechaCreacion = DateTime.Now;  //Fecha de creacion del presupuesto
                 var consulta = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@Nombre, @Fecha)";
                 var command = new SqliteCommand(consulta, connection);
-                command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.NombreDestinatario));
+                command.Parameters.Add(new SqliteParameter("@Nombre", presupuesto.Cliente.Nombre));
                 command.Parameters.Add(new SqliteParameter("@Fecha", presupuesto.FechaCreacion));
                 command.ExecuteNonQuery();
 
@@ -60,17 +62,38 @@ public class PresupuestoRepository : IPresupuestoRepository{
                 using (SqliteDataReader reader = command.ExecuteReader()){
                     if (reader.Read()){
                         int idDB = Convert.ToInt32(reader["idPresupuesto"]);
-                        string nombreDB = reader["NombreDestinatario"].ToString();
+                        int idCliente = Convert.ToInt32(reader["idCliente"]);
 
                         DateTime fecha;
                         DateTime.TryParse(reader["FechaCreacion"]?.ToString(), out fecha);
 
-                        return new Presupuesto(idDB, nombreDB, fecha);
+                        Cliente cliente = obtenerClientePorId(idCliente);
+                        return new Presupuesto(idDB, cliente, fecha);
                     }
                 }
             }
         }catch(Exception ex){
             Console.WriteLine("Error al encontrar producto: " + ex);
+        }
+        return null;
+    }
+
+    public Cliente obtenerClientePorId(int id){
+        using (SqliteConnection connection = new SqliteConnection(cadenaConexion)){
+            string consulta = "SELECT * FROM Clientes WHERE idCliente=@id;";
+            SqliteCommand command = new SqliteCommand(consulta, connection);
+            connection.Open();
+            command.Parameters.Add(new SqliteParameter("@id", id));
+            using (SqliteDataReader reader = command.ExecuteReader()){
+                while (reader.Read()){
+                    int idDB = Convert.ToInt32(reader["idCliente"]);
+                    string nombreDB = reader["Nombre"].ToString();
+                    string emailDB = reader["Email"].ToString();
+                    string telefonoDB = reader["Telefono"].ToString();
+                    return new Cliente(idDB, nombreDB, emailDB, telefonoDB);
+                }
+            }
+            connection.Close();
         }
         return null;
     }

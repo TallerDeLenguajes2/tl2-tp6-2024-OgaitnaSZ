@@ -1,0 +1,8 @@
+@model tl2_tp6_2024_OgaitnaSZ.Models.Cliente;
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <p>Esta seguro que desea eliminar al cliente <strong>@Model.Nombre</strong>?</p>
+    <div class="d-flex flex-row">
+        <a class="btn btn-success me-3" asp-area="" asp-controller="Clientes" asp-action="Eliminar" asp-route-id="@Model.IdCliente">Aceptar</a>
+        <a class="btn btn-danger" asp-area="" asp-controller="Clientes" asp-action="ListarClientes">Cancelar</a>
+    </div>
+</div>

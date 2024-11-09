@@ -15,19 +15,16 @@ public class Presupuesto{
         FechaCreacion = fechaCreacion;
     }
 
-        public int MontoPresupuesto()
-        {
+        public decimal MontoPresupuesto(){
             return Detalle.Sum(d => d.Producto.Precio * d.Cantidad);
         }
 
-        public int MontoPresupuestoConIva()
-        {
-            const double iva = 0.21;
-            return (int)(MontoPresupuesto() * (1 + iva));
+        public decimal MontoPresupuestoConIva(){
+            const decimal iva = (decimal)0.21;
+            return (MontoPresupuesto() * (1 + iva));
         }
 
-        public int CantidadProductos()
-        {
+        public int CantidadProductos(){
             return Detalle.Sum(d => d.Cantidad);
         }
 }
