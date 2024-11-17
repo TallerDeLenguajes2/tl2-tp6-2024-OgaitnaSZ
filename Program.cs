@@ -3,9 +3,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
-builder.Services.AddScoped<IPresupuestoRepository, PresupuestoRepository>();
-builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddSingleton<IProductoRepository, ProductoRepository>();
+builder.Services.AddSingleton<IPresupuestoRepository, PresupuestoRepository>();
+builder.Services.AddSingleton<IClienteRepository, ClienteRepository>();
 
 var app = builder.Build();
 
