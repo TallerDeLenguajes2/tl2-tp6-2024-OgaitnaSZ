@@ -9,8 +9,9 @@ public class PresupuestoDetalle{
     }
 }
 public class ViweModelDetallesPresupuesto{
-    public List<PresupuestoDetalle> detalles{get;set;}
-    public int idPresupuesto {get;set;}
+    public List<PresupuestoDetalle> Detalles{get;set;}
+    public int IdPresupuesto {get;set;}
+    public string Rol {get;set;}
 }
 
 public class ViewModelNuevoPresupuesto{

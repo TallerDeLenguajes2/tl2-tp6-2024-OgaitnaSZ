@@ -8,7 +8,7 @@
     <div class="d-flex flex-column justify-content-center align-items-center">
         <div class="text-center">
             <a class="btn btn-danger" asp-area="" asp-controller="Presupuestos" asp-action="ListarPresupuestos"><i class="bi bi-arrow-left"></i> Volver</a>
-            <a class="btn btn-success" asp-area="" asp-controller="Presupuestos" asp-action="AgregarProductosAPresupuesto" asp-route-idPresupuesto="@Model.idPresupuesto">Agregar Productos</a>
+            @if(Model.Rol == "Administrador"){<a class="btn btn-success" asp-area="" asp-controller="Presupuestos" asp-action="AgregarProductosAPresupuesto" asp-route-idPresupuesto="@Model.IdPresupuesto">Agregar Productos</a>}
         </div>
         <table class="table w-50">
             <thead class="thead-dark">
@@ -17,17 +17,17 @@
                     <th scope="col" class="text-center">Cantidad</th>
                     <th scope="col" class="text-center">Precio Unitario</th>
                     <th scope="col" class="text-center">Precio Total</th>
-                    <th scope="col" class="text-center">Eliminar</th>
+                    @if(Model.Rol == "Administrador"){<th scope="col" class="text-center">Eliminar</th>}
                 </tr>
             </thead>
             <tbody>
-                @foreach (var detalle in Model.detalles){
+                @foreach (var detalle in Model.Detalles){
                     <tr>
                         <td>@detalle.Producto.Descripcion</td>
                         <td class="text-center">@detalle.Cantidad</td>
                         <td class="text-center">$@detalle.Producto.Precio.ToString("N0")</td>
                         <td class="text-center">$@((detalle.Producto.Precio*detalle.Cantidad).ToString("N0"))</td> @{total+=detalle.Producto.Precio*detalle.Cantidad;}
-                        <td class="text-center"><a asp-area="" asp-controller="Presupuestos" asp-action="EliminarProductoDelPresupuesto" asp-route-idProducto="@detalle.Producto.IdProducto" asp-route-idPresupuesto="@Model.idPresupuesto"><i class="bi bi-trash3"></i></a></td>
+                        @if(Model.Rol == "Administrador"){<td class="text-center"><a asp-area="" asp-controller="Presupuestos" asp-action="EliminarProductoDelPresupuesto" asp-route-idProducto="@detalle.Producto.IdProducto" asp-route-idPresupuesto="@Model.IdPresupuesto"><i class="bi bi-trash3"></i></a></td>}
                     </tr>
                 }
             </tbody>

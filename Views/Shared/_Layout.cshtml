@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    // Verificar si hay una session en la cookie
+    var user = Context.Request.Cookies["AuthCookie"];
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -34,7 +38,12 @@
                         </li>
                     </ul>
                     <div class="my-2 my-0">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Login">Iniciar Sesion <i class="bi bi-person-fill"></i></a>
+                        @if (string.IsNullOrEmpty(user)){
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Login">Iniciar Sesion <i class="bi bi-person-fill"></i></a>
+                        }else{
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Logout">Cerrar Sesion</a>
+                        }
+                    </div>
                     </div>
                 </div>
             </div>

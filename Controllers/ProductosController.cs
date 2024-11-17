@@ -15,12 +15,20 @@ public class ProductosController : Controller{
 
     /* ----- Listar Productos ----- */
     public IActionResult ListarProductos(){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         List<Producto> productos = ProductoRepository.ListarProductos();
         return View(productos);
     }
 
     /* ----- Crear Producto ----- */
     public IActionResult CrearProducto(){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         return View();
     }
 
@@ -35,6 +43,10 @@ public class ProductosController : Controller{
 
     /* ----- Modificar Producto ----- */
     public IActionResult ModificarProducto(int id){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         Producto productoAModificar = ProductoRepository.ObtenerProductoPorId(id);
         if(productoAModificar == null){
             return NotFound();
@@ -53,6 +65,10 @@ public class ProductosController : Controller{
 
     /* ----- Eliminar Producto ----- */
     public IActionResult EliminarProducto(int id){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         Producto productoAEliminar = ProductoRepository.ObtenerProductoPorId(id);
         if(productoAEliminar == null){
             return NotFound();

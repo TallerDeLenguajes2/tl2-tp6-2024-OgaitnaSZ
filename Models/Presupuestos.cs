@@ -15,16 +15,22 @@ public class Presupuesto{
         FechaCreacion = fechaCreacion;
     }
 
-        public decimal MontoPresupuesto(){
-            return Detalle.Sum(d => d.Producto.Precio * d.Cantidad);
-        }
+    public decimal MontoPresupuesto(){
+        return Detalle.Sum(d => d.Producto.Precio * d.Cantidad);
+    }
 
-        public decimal MontoPresupuestoConIva(){
-            const decimal iva = (decimal)0.21;
-            return (MontoPresupuesto() * (1 + iva));
-        }
+    public decimal MontoPresupuestoConIva(){
+        const decimal iva = (decimal)0.21;
+        return (MontoPresupuesto() * (1 + iva));
+    }
 
-        public int CantidadProductos(){
-            return Detalle.Sum(d => d.Cantidad);
-        }
+    public int CantidadProductos(){
+        return Detalle.Sum(d => d.Cantidad);
+    }
+}
+
+//Viewmodel para listar presupuestos y rol de usuario
+public class ViweModelPresupuestos{
+    public List<Presupuesto> Presupuestos{get;set;}
+    public string Rol {get;set;}
 }

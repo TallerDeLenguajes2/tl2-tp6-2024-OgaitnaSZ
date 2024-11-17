@@ -9,11 +9,10 @@ public class Usuario{
     public string Rol{ get; set; }
 
     public Usuario(){}
-    public Usuario(int idUsuario, string nombre, string user, string password, string rol){
+    public Usuario(int idUsuario, string nombre, string user, string rol){
         IdUsuario = idUsuario;
         Nombre = nombre;
         User = user;
-        Password = password;
         Rol = rol;
     }
 }

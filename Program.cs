@@ -8,6 +8,14 @@ builder.Services.AddSingleton<IPresupuestoRepository, PresupuestoRepository>();
 builder.Services.AddSingleton<IClienteRepository, ClienteRepository>();
 builder.Services.AddSingleton<IUsuarioRepository, UsuarioRepository>();
 
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Duración de la sesión
+    options.Cookie.HttpOnly = true;                 // Aumenta la seguridad
+    options.Cookie.IsEssential = true;              // Necesario para RGPD/GDPR
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +30,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
+
+app.UseEndpoints(endpoints =>{
+    endpoints.MapControllers(); // Rutas de controladores
+});
 
 app.UseAuthorization();
 

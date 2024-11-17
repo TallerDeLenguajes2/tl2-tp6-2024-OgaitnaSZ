@@ -13,12 +13,20 @@ public class ClientesController : Controller{
 
     /* Listar Clientes */
     public IActionResult ListarClientes(){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         List<Cliente> clientes = ClienteRepository.ListarClientes();
         return View(clientes);
     }
 
     /* ----- Crear Cliente ----- */
     public IActionResult CrearCliente(){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         return View();
     }
 
@@ -33,6 +41,10 @@ public class ClientesController : Controller{
 
     /* ----- Modificar Cliente ----- */
     public IActionResult ModificarCliente(int id){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         Cliente clienteAModificar = ClienteRepository.ObtenerClientePorId(id);
         if(clienteAModificar == null){
             return NotFound();
@@ -51,6 +63,10 @@ public class ClientesController : Controller{
 
     /* ----- Eliminar Cliente ----- */
     public IActionResult EliminarCliente(int id){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         Cliente clienteAEliminar = ClienteRepository.ObtenerClientePorId(id);
         if(clienteAEliminar == null){
             return NotFound();

@@ -1,4 +1,4 @@
-@model List<Presupuesto>
+@model ViweModelPresupuestos
 
 <div class="container">
     <h1 class="display-4 text-center">Presupuestos</h1>
@@ -10,16 +10,16 @@
                     <th scope="col">Destinatario</th>
                     <th scope="col" class="text-center">Fecha</th>
                     <th scope="col" class="text-center">Ver Detalle</th>
-                    <th scope="col" class="text-center">Eliminar</th>
+                    @if(Model.Rol == "Administrador"){<th scope="col" class="text-center">Eliminar</th>}
                 </tr>
             </thead>
             <tbody>
-                @foreach (var presupuesto in Model){
+                @foreach (var presupuesto in Model.Presupuestos){
                     <tr>
                         <td>@presupuesto.Cliente.Nombre</td>
                         <td class="text-center">@presupuesto.FechaCreacion.ToShortDateString()</td>
                         <td class="text-center"><a asp-area="" asp-controller="Presupuestos" asp-action="PresupuestoDetalle" asp-route-id="@presupuesto.IdPresupuesto"><i class="bi bi-card-list"></i></a></td>
-                        <td class="text-center"><a asp-area="" asp-controller="Presupuestos" asp-action="EliminarPresupuesto" asp-route-id="@presupuesto.IdPresupuesto"><i class="bi bi-trash3"></i></a></td>
+                        @if(Model.Rol == "Administrador"){<td class="text-center"><a asp-area="" asp-controller="Presupuestos" asp-action="EliminarPresupuesto" asp-route-id="@presupuesto.IdPresupuesto"><i class="bi bi-trash3"></i></a></td>}
                     </tr>
                 }
             </tbody>

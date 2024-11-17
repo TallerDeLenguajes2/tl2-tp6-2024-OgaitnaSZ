@@ -14,12 +14,21 @@ public class PresupuestosController : Controller{
 
     /* ----- Listar Presupuestos ----- */
     public IActionResult ListarPresupuestos(){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         List<Presupuesto> presupuestos = PresupuestoRepository.ListarPresupuestos();
-        return View(presupuestos);
+        var datosPresupuestos = new ViweModelPresupuestos{Presupuestos = presupuestos, Rol = HttpContext.Session.GetString("Rol")};
+        return View(datosPresupuestos);
     }
 
     /* ----- Crear Presupuesto ----- */
     public IActionResult CrearPresupuesto(){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         List<Cliente> clientes = PresupuestoRepository.ObtenerClientes();
         return View(clientes);
     }
@@ -38,6 +47,10 @@ public class PresupuestosController : Controller{
 
     /* ----- Eliminar Presupuesto ----- */
     public IActionResult EliminarPresupuesto(int id){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         Presupuesto presupuestoAEliminar = PresupuestoRepository.ObtenerPresupuestoPorId(id);
         if(presupuestoAEliminar == null){
             return NotFound();
@@ -54,20 +67,27 @@ public class PresupuestosController : Controller{
     }
 
     /* ----- Presupuesto Detalle ----- */
-
     public IActionResult PresupuestoDetalle(int id){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         Presupuesto presupuestoAMostrar = PresupuestoRepository.ObtenerPresupuestoPorId(id);
         if(presupuestoAMostrar == null){
             return NotFound();
         }
         List<PresupuestoDetalle> detalles = PresupuestoRepository.ObtenerDetalles(id);
-        ViweModelDetallesPresupuesto viewModel = new ViweModelDetallesPresupuesto{detalles = detalles , idPresupuesto = id};
+        ViweModelDetallesPresupuesto viewModel = new ViweModelDetallesPresupuesto{Detalles = detalles , IdPresupuesto = id, Rol = HttpContext.Session.GetString("Rol")};
         return View(viewModel);
     }
 
     public IActionResult AgregarProductosAPresupuesto(int idPresupuesto){
+        var username = Request.Cookies["AuthCookie"];
+        if (username == null){
+            return RedirectToAction("Login", "Usuarios");
+        }
         List<Producto> productos = PresupuestoRepository.ObtenerProductos();
-        var datosForm = new ViewModelNuevoPresupuesto{productos = productos ,idPresupuesto = idPresupuesto};
+        ViewModelNuevoPresupuesto datosForm = new ViewModelNuevoPresupuesto{productos = productos ,idPresupuesto = idPresupuesto};
         return View("AgregarProductosAPresupuesto", datosForm);
     }
 
