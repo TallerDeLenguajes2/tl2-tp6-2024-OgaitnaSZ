@@ -26,7 +26,6 @@ public class PresupuestosController : Controller{
 
     [HttpPost]
     public IActionResult Crear(int IdCliente){
-        Console.WriteLine($"Creando presupuesto para el cliente {IdCliente}");
         Presupuesto presupuesto = new Presupuesto();
         if (ModelState.IsValid){
             Cliente cliente = PresupuestoRepository.ObtenerClientePorId(IdCliente);
