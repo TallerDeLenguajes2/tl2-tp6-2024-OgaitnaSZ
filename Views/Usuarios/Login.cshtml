@@ -1,0 +1,18 @@
+<div class="container">
+    <h1 class="text-center">Iniciar Sesion</h1>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <form asp-action="Validar" asp-controller="Usuarios" asp-controller="Clientes" class="w-50">
+            <div class="form-group">
+                <label for="User">Usuario</label>
+                <input type="text" name="User" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="Password">Contraseña</label>
+                <input type="text" name="Password" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+            </div>
+        </form>
+    </div>
+</div>

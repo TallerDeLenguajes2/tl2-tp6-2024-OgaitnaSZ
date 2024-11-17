@@ -6,6 +6,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IProductoRepository, ProductoRepository>();
 builder.Services.AddSingleton<IPresupuestoRepository, PresupuestoRepository>();
 builder.Services.AddSingleton<IClienteRepository, ClienteRepository>();
+builder.Services.AddSingleton<IUsuarioRepository, UsuarioRepository>();
 
 var app = builder.Build();
 
