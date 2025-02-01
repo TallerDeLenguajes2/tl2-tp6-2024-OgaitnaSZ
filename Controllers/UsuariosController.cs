@@ -20,20 +20,24 @@ public class Usuarios : Controller{
     [HttpPost]
     public IActionResult Validar(string User, string Password){
         if (ModelState.IsValid){
-            Usuario usuario = UsuarioRepository.AutenticarUsuario(User, Password);
-            if(usuario != null){
-                // Crear variables de sesion
-                HttpContext.Session.SetString("User", usuario.User);
-                HttpContext.Session.SetString("Rol", usuario.Rol);
+            try{
+                Usuario usuario = UsuarioRepository.AutenticarUsuario(User, Password);
+                if(usuario != null){
+                    // Crear variables de sesion
+                    HttpContext.Session.SetString("User", usuario.User);
+                    HttpContext.Session.SetString("Rol", usuario.Rol);
 
-                // Crear Cookie
-                Response.Cookies.Append("AuthCookie", usuario.Nombre, new CookieOptions{
-                    HttpOnly = true,
-                    Expires = DateTimeOffset.Now.AddHours(1), 
-                });
+                    // Crear Cookie
+                    Response.Cookies.Append("AuthCookie", usuario.Nombre, new CookieOptions{
+                        HttpOnly = true,
+                        Expires = DateTimeOffset.Now.AddHours(1), 
+                    });
 
-                return RedirectToAction("listarPresupuestos", "Presupuestos");
-            }
+                    return RedirectToAction("listarPresupuestos", "Presupuestos");
+                }
+            }catch(Exception ex){
+                return BadRequest();
+            }            
         }
         return View("Login", User);
     }

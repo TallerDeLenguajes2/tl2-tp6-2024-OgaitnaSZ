@@ -17,11 +17,15 @@ public class UsuarioRepository : IUsuarioRepository{
                     string nombreDB = reader["Nombre"].ToString();
                     string userDB = reader["User"].ToString();
                     string rolDB = reader["Rol"].ToString();
+                    Console.WriteLine("El usuario" + nombreDB + "ingreso correctamente");
                     return new Usuario(idDB, nombreDB, userDB, rolDB);
                 }
             }
             connection.Close();
         }
+        Console.WriteLine("Intento de acceso invalido");
+        Console.WriteLine("Usuario: "+user);
+        Console.WriteLine("Contraseña: "+pass);
         return null;
     }
 }

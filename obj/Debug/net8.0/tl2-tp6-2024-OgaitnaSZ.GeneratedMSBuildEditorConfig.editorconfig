@@ -9,91 +9,91 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = tl2_tp6_2024_OgaitnaSZ
 build_property.RootNamespace = tl2_tp6_2024_OgaitnaSZ
-build_property.ProjectDir = D:\Taller2\tl2-tp6-2024-OgaitnaSZ\
+build_property.ProjectDir = D:\FAC\FAC 2024\Taller2\tl2-tp6-2024-OgaitnaSZ\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Taller2\tl2-tp6-2024-OgaitnaSZ
+build_property.MSBuildProjectDirectory = D:\FAC\FAC 2024\Taller2\tl2-tp6-2024-OgaitnaSZ
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Clientes/CrearCliente.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Clientes/CrearCliente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcQ3JlYXJDbGllbnRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Clientes/EliminarCliente.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Clientes/EliminarCliente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcRWxpbWluYXJDbGllbnRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Clientes/ListarClientes.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Clientes/ListarClientes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcTGlzdGFyQ2xpZW50ZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Clientes/ModificarCliente.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Clientes/ModificarCliente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcTW9kaWZpY2FyQ2xpZW50ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Home/Index.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/AgregarProductosAPresupuesto.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/AgregarProductosAPresupuesto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc3VwdWVzdG9zXEFncmVnYXJQcm9kdWN0b3NBUHJlc3VwdWVzdG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/CrearPresupuesto.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/CrearPresupuesto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc3VwdWVzdG9zXENyZWFyUHJlc3VwdWVzdG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/EliminarPresupuesto.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/EliminarPresupuesto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc3VwdWVzdG9zXEVsaW1pbmFyUHJlc3VwdWVzdG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/ListarPresupuestos.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/ListarPresupuestos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc3VwdWVzdG9zXExpc3RhclByZXN1cHVlc3Rvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/PresupuestoDetalle.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Presupuestos/PresupuestoDetalle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc3VwdWVzdG9zXFByZXN1cHVlc3RvRGV0YWxsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Productos/CrearProducto.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Productos/CrearProducto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXENyZWFyUHJvZHVjdG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Productos/EliminarProducto.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Productos/EliminarProducto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXEVsaW1pbmFyUHJvZHVjdG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Productos/ListarProductos.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Productos/ListarProductos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXExpc3RhclByb2R1Y3Rvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Productos/ModificarProducto.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Productos/ModificarProducto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXE1vZGlmaWNhclByb2R1Y3RvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Shared/Error.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Usuarios/Login.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Usuarios/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/_ViewImports.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/_ViewStart.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Shared/_Layout.cshtml]
+[D:/FAC/FAC 2024/Taller2/tl2-tp6-2024-OgaitnaSZ/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-1ujoxj72we
